@@ -6,47 +6,53 @@
   <title>AfyaLink — Healthcare Access Made Simple</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <!-- HEADER -->
   <header>
     <h1>AfyaLink 🏥</h1>
     <button id="theme-toggle">🌙 Dark Mode</button>
   </header>
- <section class="filters">
-    <input type="text" id="search" placeholder="Search by name or county..." />
+
+  <!-- FILTERS SECTION -->
+  <section class="filters">
+    <input type="text" id="search" placeholder="Search by name or location..." />
+
     <select id="county-filter">
       <option value="">All Counties</option>
       <option value="Mombasa">Mombasa</option>
-      <option value="Kisumu">Kisumu</option>
       <option value="Nairobi">Nairobi</option>
-      <option value="Machakos">Machakos</option>
-      <option value="Garissa">Embu</option>
-      <option value="Malindi">Meru</option>
+      <option value="Kisumu">Kisumu</option>
+      <option value="Nakuru">Nakuru</option>
+      <option value="Eldoret">Eldoret</option>
+      <option value="Malindi">Malindi</option>
+      <option value="Kakamega">Kakamega</option>
+      <option value="Garissa">Garissa</option>
     </select>
+
     <select id="type-filter">
-      <option value="">All Types</option>
+      <option value="">All Facility Types</option>
       <option value="Hospital">Hospital</option>
       <option value="Clinic">Clinic</option>
-      <option value="Pharmacy">Pharmacy</option>
+      <option value="Health Centre">Health Centre</option>
     </select>
+
     <label>
       <input type="checkbox" id="nhif-filter" />
       NHIF Only
     </label>
   </section>
 
-  <main id="facility-list"></main>
+  <!-- MAIN CONTENT -->
+  <main id="facility-list" class="facility-container">
+    <!-- Facilities will be rendered here dynamically -->
+  </main>
 
+  <!-- FOOTER -->
   <footer>
     <p>Powered by AfyaLink • Bridging Healthcare Access in Kenya</p>
   </footer>
 
- <script src="myapp.js"></script>
+  <script src="myapp.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
