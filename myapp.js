@@ -1,3 +1,4 @@
+// ===================== DOM ELEMENTS =====================
 const facilityList = document.getElementById("facility-list");
 const searchInput = document.getElementById("search");
 const countyFilter = document.getElementById("county-filter");
@@ -5,10 +6,11 @@ const typeFilter = document.getElementById("type-filter");
 const nhifFilter = document.getElementById("nhif-filter");
 const themeToggle = document.getElementById("theme-toggle");
 
+// ===================== API SETUP =====================
 const API_URL = "http://localhost:3000/facilities";
 let facilities = [];
 
-// ========== FETCH DATA ==========
+// ===================== FETCH DATA =====================
 function fetchFacilities() {
   fetch(API_URL)
     .then(res => res.json())
@@ -18,7 +20,8 @@ function fetchFacilities() {
     })
     .catch(err => console.error("Error fetching facilities:", err));
 }
-// ========== RENDER FUNCTION ==========
+
+// ===================== RENDER FACILITIES =====================
 function renderFacilities(data) {
   facilityList.innerHTML = "";
 
@@ -43,36 +46,31 @@ function renderFacilities(data) {
 
     facilityList.appendChild(card);
   });
-}// ========== EVENT LISTENERS ==========
+}
 
-// 1️⃣ Search input
-searchInput.addEventListener("input", () => applyFilters());
+// ===================== FILTERS & SEARCH =====================
+function applyFilters() {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  const county = countyFilter.value;
+  const type = typeFilter.value;
+  const nhifOnly = nhifFilter.checked;
 
-// 2️⃣ Dropdown filters
-countyFilter.addEventListener("change", () => applyFilters());
-typeFilter.addEventListener("change", () => applyFilters());
-nhifFilter.addEventListener("change", () => applyFilters());
+  const filtered = facilities.filter(facility => {
+    const matchesSearch =
+      facility.name.toLowerCase().includes(searchTerm) ||
+      facility.county.toLowerCase().includes(searchTerm);
 
-// 3️⃣ Like button (event delegation)
-facilityList.addEventListener("click", (e) => {
-  if (e.target.classList.contains("like-btn")) {
-    const id = e.target.dataset.id;
-    const facility = facilities.find(f => f.id == id);
-    if (facility) {
-      const updatedLikes = facility.likes + 1;
-      updateLikes(id, updatedLikes, e.target);
-    }
-  }
-});
+    const matchesCounty = county ? facility.county === county : true;
+    const matchesType = type ? facility.facility_type === type : true;
+    const matchesNHIF = nhifOnly ? facility.nhif === true : true;
 
-// 4️⃣ Theme toggle
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  const darkModeOn = document.body.classList.contains("dark");
-  themeToggle.textContent = darkModeOn ? "☀️ Light Mode" : "🌙 Dark Mode";
-});
+    return matchesSearch && matchesCounty && matchesType && matchesNHIF;
+  });
 
-// ========== UPDATE LIKES ==========
+  renderFacilities(filtered);
+}
+
+// ===================== LIKE BUTTON UPDATE =====================
 function updateLikes(id, newLikes, buttonEl) {
   fetch(`${API_URL}/${id}`, {
     method: "PATCH",
@@ -88,27 +86,48 @@ function updateLikes(id, newLikes, buttonEl) {
     .catch(err => console.error("Error updating likes:", err));
 }
 
-// ========== FILTER FUNCTION ==========
-function applyFilters() {
-  const searchTerm = searchInput.value.toLowerCase();
-  const county = countyFilter.value;
-  const type = typeFilter.value;
-  const nhifOnly = nhifFilter.checked;
-
-  const filtered = facilities.filter(facility => {
-    const matchesSearch =
-      facility.name.toLowerCase().includes(searchTerm) ||
-      facility.county.toLowerCase().includes(searchTerm);
-
-    const matchesCounty = county ? facility.county === county : true;
-    const matchesType = type ? facility.facility_type === type : true;
-    const matchesNHIF = nhifOnly ? facility.nhif : true;
-
-    return matchesSearch && matchesCounty && matchesType && matchesNHIF;
-  });
-
-  renderFacilities(filtered);
+// ===================== THEME TOGGLE =====================
+function toggleTheme() {
+  document.body.classList.toggle("dark-mode");
+  const isDark = document.body.classList.contains("dark-mode");
+  themeToggle.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+  localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
+// Load theme from localStorage on startup
+function loadTheme() {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent = "☀️ Light Mode";
+  } else {
+    themeToggle.textContent = "🌙 Dark Mode";
+  }
+}
 
+// ===================== EVENT LISTENERS =====================
+
+// Search and filters
+searchInput.addEventListener("input", applyFilters);
+countyFilter.addEventListener("change", applyFilters);
+typeFilter.addEventListener("change", applyFilters);
+nhifFilter.addEventListener("change", applyFilters);
+
+// Like button
+facilityList.addEventListener("click", e => {
+  if (e.target.classList.contains("like-btn")) {
+    const id = e.target.dataset.id;
+    const facility = facilities.find(f => f.id == id);
+    if (facility) {
+      const updatedLikes = facility.likes + 1;
+      updateLikes(id, updatedLikes, e.target);
+    }
+  }
+});
+
+// Theme toggle
+themeToggle.addEventListener("click", toggleTheme);
+
+// ===================== INIT APP =====================
+loadTheme();
 fetchFacilities();

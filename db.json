@@ -2,83 +2,43 @@
   "facilities": [
     {
       "id": 1,
-      "name": "Mombasa County Hospital",
+      "name": "Mombasa Hospital",
       "county": "Mombasa",
       "facility_type": "Hospital",
       "nhif": true,
-      "likes": 12
+      "likes": 10
     },
     {
       "id": 2,
-      "name": "Coast General Teaching and Referral Hospital",
-      "county": "Mombasa",
-      "facility_type": "Hospital",
-      "nhif": true,
-      "likes": 25
-    },
-    {
-      "id": 3,
-      "name": "Likoni Community Clinic",
-      "county": "Mombasa",
+      "name": "Aga Khan Clinic",
+      "county": "Nairobi",
       "facility_type": "Clinic",
-      "nhif": false,
-      "likes": 7
-    },
-    {
-      "id": 4,
-      "name": "Kisumu Central Pharmacy",
-      "county": "Kisumu",
-      "facility_type": "Pharmacy",
       "nhif": true,
       "likes": 5
     },
     {
-      "id": 5,
-      "name": "Jaramogi Oginga Odinga Teaching and Referral Hospital",
-      "county": "Kisumu",
-      "facility_type": "Hospital",
-      "nhif": true,
-      "likes": 19
-    },
-    {
-      "id": 6,
-      "name": "Machakos Level 5 Hospital",
+      "id": 3,
+      "name": "Machakos Pharmacy",
       "county": "Machakos",
-      "facility_type": "Hospital",
-      "nhif": true,
-      "likes": 14
-    },
-    {
-      "id": 7,
-      "name": "Ngong Road Family Clinic",
-      "county": "Nairobi",
-      "facility_type": "Clinic",
-      "nhif": false,
-      "likes": 8
-    },
-    {
-      "id": 8,
-      "name": "Karen Community Pharmacy",
-      "county": "Nairobi",
       "facility_type": "Pharmacy",
-      "nhif": true,
-      "likes": 11
+      "nhif": false,
+      "likes": 3
     },
     {
-      "id": 9,
-      "name": "Embu County Referral Hospital",
-      "county": "Embu",
+      "id": 4,
+      "name": "Meru County Hospital",
+      "county": "Meru",
       "facility_type": "Hospital",
       "nhif": true,
-      "likes": 6
+      "likes": 2
     },
     {
-      "id": 10,
-      "name": "Meru Health Centre",
-      "county": "Meru",
+      "id": 5,
+      "name": "Kisumu Wellness Center",
+      "county": "Kisumu",
       "facility_type": "Clinic",
       "nhif": false,
-      "likes": 4
+      "likes": 7
     }
   ]
 }
